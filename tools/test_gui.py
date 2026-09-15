@@ -390,6 +390,16 @@ print("11) 画面收起 + 循环静音记忆 + 首帧定位")
 window.switchTo(page)
 window.show()  # run_until_done 的 app.quit() 会藏起主窗口，先恢复（真实使用中窗口一直可见）
 wait(300)
+check(page.thumbToggle.height() >= page.thumbToggle.sizeHint().height() - 2,
+      "收起按钮高度正常（不被压扁）")
+window3 = MainWindow()
+window3.resize(1240, 880)
+window3.show()
+wait(500)
+p3 = window3.split_page
+check(p3.thumbToggle.height() >= p3.thumbToggle.sizeHint().height() - 2,
+      f"新窗口收起按钮高度正常（{p3.thumbToggle.height()} vs hint {p3.thumbToggle.sizeHint().height()}）")
+window3.hide()
 h_expanded = page.thumbHolder.height()
 check(page.thumbRow.isVisible(), "默认展开画面预览")
 page.thumbToggle.click()

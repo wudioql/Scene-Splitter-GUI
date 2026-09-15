@@ -508,6 +508,9 @@ class SplitPage(QWidget):
         self.previewTable.itemSelectionChanged.connect(lambda: self._show_segment_frames())
         self.previewTable.itemSelectionChanged.connect(self._load_player_segment)
         self._set_preview_buttons(False)
+        # 构建时尺寸未稳定（样式/字体 polish 在首次显示时才落地），显示后再定一次高度，
+        # 否则缩略图提示行的按钮会被压扁（字糊掉，点一次才好）
+        QTimer.singleShot(0, self._show_segment_frames)
 
     def _set_preview_buttons(self, has_preview: bool) -> None:
         self.splitBtn.setEnabled(has_preview and not self._busy)
@@ -724,7 +727,8 @@ class SplitPage(QWidget):
         bottom_h = max(self.thumbTip.sizeHint().height() + 4,
                        self.thumbToggle.sizeHint().height())
         shown = 0 if self._thumbs_collapsed else max(0, image_height)
-        self.thumbHolder.setFixedHeight(shown + bottom_h + 10)
+        gap = 0 if self._thumbs_collapsed else self.thumbHolder.layout().spacing()
+        self.thumbHolder.setFixedHeight(shown + bottom_h + 10 + gap)
 
     def _toggle_thumbs(self) -> None:
         """收起/展开画面预览（状态记入配置，下次启动保持）。"""

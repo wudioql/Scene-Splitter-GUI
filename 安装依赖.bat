@@ -65,6 +65,18 @@ pause
 exit /b 1
 :have_py
 
+rem --- Python 版本不得低于 3.9（旧版只能装到旧 PySide6，启动会崩）---
+%PY% -c "import sys; sys.exit(0 if sys.version_info >= (3, 9) else 1)" >nul 2>nul
+if errorlevel 1 (
+    echo [错误] Python 不可用或版本过低：需要 Python 3.9 及以上。
+    echo        请到 https://www.python.org/downloads/windows/ 安装新版 Python
+    echo        （安装时务必勾选 "Add python.exe to PATH"）。
+    echo        如果已有 .venv，请先删掉它，再重新运行本脚本。
+    echo.
+    pause
+    exit /b 1
+)
+
 %PY% -c "import sys; print('使用 Python：', sys.version.split()[0], sys.executable)"
 echo.
 

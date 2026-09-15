@@ -64,6 +64,17 @@ if exist "%PYDIR%pythonw.exe" set "PYW=%PYDIR%pythonw.exe"
 echo Using Python: %PYEXE%
 if defined PYW (echo Windowless launcher: %PYW%) else (echo pythonw.exe not found, will use python.exe)
 
+rem --- require Python 3.9+ (older Pythons can only install old PySide6 and crash at startup) ---
+"%PYEXE%" -c "import sys;sys.exit(0 if sys.version_info>=(3,9) else 1)" >nul 2>nul
+if errorlevel 1 (
+    echo [ERROR] No usable Python 3.9+ found, aborting.
+    echo         Install it from python.org, then re-run the dependency installer bat.
+    echo         If .venv already exists, delete it first so it can be rebuilt.
+    echo.
+    pause
+    exit /b 1
+)
+
 rem --- 3. dependency check (missing modules -> auto install) ---
 "%PYEXE%" -c "import scenedetect, PySide6, qfluentwidgets, imageio_ffmpeg" >nul 2>nul
 if errorlevel 1 (

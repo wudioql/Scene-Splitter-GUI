@@ -1,7 +1,7 @@
 # —— 必需依赖 ——
 # 实测通过：PySide6 6.11.2、PySide6-Fluent-Widgets 1.11.3、scenedetect 0.7.1、
 # imageio-ffmpeg 0.6.0（Windows 11 + Python 3.14；Linux + Python 3.13 回归全过）
-PySide6>=6.6                    # Qt 界面框架
+PySide6>=6.7                    # Qt 界面框架（checkStateChanged 信号要 6.7+）
 PySide6-Fluent-Widgets>=1.5     # Fluent Design 控件库（Win11 风格）
 scenedetect>=0.6.4              # PySceneDetect：场景检测（会自带 opencv-python）
 imageio-ffmpeg>=0.4.9           # 提供现成的 ffmpeg 可执行文件，免去手动配置
