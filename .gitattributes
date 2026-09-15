@@ -1,0 +1,4 @@
+# Windows 批处理必须 CRLF，否则换行会被破坏
+*.bat text eol=crlf
+# 离线说明保持 CRLF，记事本打开正常
+使用说明.txt text eol=crlf

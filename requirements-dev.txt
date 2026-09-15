@@ -1,0 +1,4 @@
+# 开发/测试专用（最终用户不需要装这些）
+-r requirements.txt
+pillow          # tools/make_screenshots.py 用到
+pyflakes        # 静态检查：python -m pyflakes scene_splitter_gui/main.py

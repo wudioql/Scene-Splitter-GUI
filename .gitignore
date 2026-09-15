@@ -1,0 +1,9 @@
+.venv/
+uploads/
+__pycache__/
+*.pyc
+dist/
+build/
+*.old.txt
+启动日志.txt
+.scene_splitter_gui/
